@@ -1,0 +1,17 @@
+{
+  "name": "swim2fit",
+  "version": "1.0.0",
+  "description": "Convert swim session PDFs to Garmin FIT workouts",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@garmin/fitsdk": "^21.218.0",
+    "pdfjs-dist": "^6.4.299"
+  },
+  "private": true
+}

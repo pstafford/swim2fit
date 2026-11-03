@@ -1,0 +1,4 @@
+node_modules/
+# Real coach-issued sessions stay on your machine: they contain your name and your coach's programme.
+test/private/
+.DS_Store

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swim2Fit</title>
+<meta name="description" content="Turn a swim session PDF into a Garmin FIT workout. Files stay in your browser.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<header>
+  <h1>Swim2Fit</h1>
+  <p>Turn a swim session PDF into a structured workout for a Garmin watch. Your files stay in this browser and are never uploaded.</p>
+</header>
+
+<main>
+  <label id="drop" class="drop">
+    <input id="files" type="file" accept="application/pdf,.pdf" multiple>
+    <strong>Choose session PDFs</strong> or drop them here
+  </label>
+  <p class="alt"><button id="paste" type="button" class="link">Or type or paste the sets instead</button></p>
+
+  <nav id="tabs" class="tabs" hidden></nav>
+
+  <section id="session" hidden>
+    <div class="fields">
+      <label>Workout name <input id="name" type="text" maxlength="30"></label>
+      <label>Pool
+        <select id="pool"><option value="25">25 m</option><option value="50">50 m</option></select>
+      </label>
+      <label class="check"><input id="pauses" type="checkbox" checked> Wait for the lap button where no rest is given</label>
+    </div>
+
+    <div id="warnings" class="warnings"></div>
+
+    <div class="columns">
+      <div>
+        <h2>Coach's sets</h2>
+        <p class="hint">Fix anything here and the workout updates.</p>
+        <textarea id="text" spellcheck="false" rows="26"></textarea>
+        <details id="originalBox" hidden>
+          <summary>Show the original PDF</summary>
+          <canvas id="original"></canvas>
+        </details>
+      </div>
+      <div>
+        <h2>On your watch</h2>
+        <p id="summary" class="hint"></p>
+        <ol id="steps" class="steps"></ol>
+        <button id="download" type="button" class="primary">Download .fit file</button>
+      </div>
+    </div>
+  </section>
+
+  <details class="help">
+    <summary>Getting the workout onto a Garmin watch</summary>
+    <ol>
+      <li>Connect the watch to a computer with its USB cable. On a Mac, recent watches need a file transfer app such as <a href="https://openmtp.org/">OpenMTP</a>.</li>
+      <li>Copy the .fit file into the <code>GARMIN/NewFiles</code> folder, then unplug the watch.</li>
+      <li>Find it in the pool swim activity under Training &gt; Workouts. Menu names vary by model.</li>
+    </ol>
+    <p>Garmin Connect does not import workout FIT files, so this has to be done over USB. Apple Watch does not read FIT files.</p>
+  </details>
+
+  <details class="help">
+    <summary>How the workout behaves in the pool</summary>
+    <ul>
+      <li><strong>Kick and drill steps:</strong> the watch cannot count lengths without arm strokes, so expect to press lap to finish them.</li>
+      <li><strong>Zones:</strong> shown as text with their RPE, not as heart-rate alerts, because wrist heart rate is unreliable in water.</li>
+      <li><strong>Rest ranges and send-offs (R1-2min, on 3:00):</strong> the watch waits for the lap button.</li>
+    </ul>
+  </details>
+
+  <details class="help">
+    <summary>Notation it understands</summary>
+    <ul>
+      <li><code>5x200 R20 @Z3</code>: reps, distance, rest in seconds, zone. Also <code>R1:30</code>, <code>R2min</code>, <code>R1-2min</code>, <code>on 3:00</code>.</li>
+      <li><code>3x</code> on its own line repeats the lines below it, up to the next blank line. <code>- Set 1: …</code> changes one round.</li>
+      <li><code>10x200 R60 as</code> with <code>- 2x @Z3</code> lines breaks the reps down. <code>Odds:</code> and <code>Evens:</code> work too.</li>
+      <li><code>(50 MAX + 150 easy)</code>, <code>[25 drill / 75 swim]</code>: parts of one rep, with no rest between them.</li>
+      <li><code>drill/swim</code>: half of each. <code>fins</code>, <code>pull</code>, <code>paddles</code>, <code>snorkel</code>, <code>board</code>: equipment.</li>
+      <li><code>Warm up</code>, <code>Main set</code>, <code>Warm down</code>: sections. <code>- 2.9km</code>: the stated total, checked against the sets.</li>
+    </ul>
+  </details>
+</main>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

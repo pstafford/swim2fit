@@ -1,0 +1,63 @@
+:root {
+  --bg: #f6f8fa; --surface: #fff; --text: #14212b; --muted: #566773; --line: #d5dde3;
+  --accent: #0b6e99; --accent-text: #fff; --warn-bg: #fff4d6; --warn-line: #d9a400;
+  --info-bg: #e8f3f8; --info-line: #7fb4cc; --rest: #566773;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10181e; --surface: #18232b; --text: #e6edf2; --muted: #9db0bd; --line: #2e3e49;
+    --accent: #4db3dd; --accent-text: #08202b; --warn-bg: #3a2f0c; --warn-line: #b58a10;
+    --info-bg: #15303d; --info-line: #2f6c87; --rest: #9db0bd;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header, main { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+header { padding-top: 32px; }
+h1 { margin: 0 0 4px; font-size: 1.75rem; }
+h2 { margin: 0; font-size: 1.1rem; }
+header p { margin: 0 0 20px; color: var(--muted); }
+a { color: var(--accent); }
+code { font-size: .9em; }
+.drop { display: block; padding: 28px 16px; text-align: center; background: var(--surface); border: 2px dashed var(--line); border-radius: 10px; cursor: pointer; }
+.drop:hover, .drop.over, .drop:focus-within { border-color: var(--accent); }
+.drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.alt { margin: 8px 0 20px; text-align: center; }
+.link { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; text-decoration: underline; cursor: pointer; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.tabs button { padding: 6px 12px; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 6px; font: inherit; cursor: pointer; }
+.tabs button[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.fields { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; margin-bottom: 16px; }
+.fields label { display: flex; flex-direction: column; gap: 2px; font-size: .9rem; color: var(--muted); }
+.fields label.check { flex-direction: row; align-items: center; gap: 6px; padding-bottom: 8px; }
+input[type="text"], select, textarea { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font: inherit; }
+#name { width: min(280px, 80vw); }
+.warnings > div { padding: 8px 12px; margin-bottom: 8px; border-left: 4px solid; border-radius: 4px; }
+.warnings .warn { background: var(--warn-bg); border-color: var(--warn-line); }
+.warnings .info { background: var(--info-bg); border-color: var(--info-line); }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
+.columns > div { min-width: 0; }
+.hint { margin: 0 0 8px; color: var(--muted); font-size: .9rem; }
+textarea { width: 100%; font: 14px/1.5 ui-monospace, Menlo, monospace; resize: vertical; }
+details#originalBox { margin-top: 12px; }
+canvas { max-width: 100%; margin-top: 8px; border: 1px solid var(--line); }
+.steps { list-style: none; margin: 0 0 16px; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.steps li { padding: 7px 12px; border-top: 1px solid var(--line); }
+.steps > li:first-child { border-top: 0; }
+.steps .section { font-size: .8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; background: var(--bg); }
+.steps .repeat { padding: 0; }
+.steps .repeat > .count { display: block; padding: 7px 12px; font-weight: 600; }
+.steps .repeat ol { list-style: none; margin: 0 0 0 12px; padding: 0; border-left: 3px solid var(--accent); }
+.steps .rest { color: var(--rest); font-size: .92rem; }
+.steps small { display: block; color: var(--muted); }
+.tag { display: inline-block; margin-left: 6px; padding: 0 6px; font-size: .75rem; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); white-space: nowrap; }
+.primary { width: 100%; padding: 11px; background: var(--accent); color: var(--accent-text); border: 0; border-radius: 8px; font: inherit; font-weight: 600; cursor: pointer; }
+.primary:disabled { opacity: .5; cursor: default; }
+.help { margin: 16px 0; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.help summary { cursor: pointer; font-weight: 600; }
+.help ol, .help ul { padding-left: 20px; }
+.help p { margin-bottom: 0; }
+main { padding-bottom: 40px; }
+@media (max-width: 720px) { .columns { grid-template-columns: 1fr; } }
